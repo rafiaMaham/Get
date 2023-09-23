@@ -9,16 +9,24 @@ import Add from "./pages/add/Add";
 import Messages from "./pages/messages/Messages";
 import Message from "./pages/message/Message";
 import Footer from "./components/footer/Footer";
+import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import "./App.scss";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 function App() {
+  const queryClient = new QueryClient();
+
   const Layout = () => {
     return (
       <div className="app">
-        <Navbar />
-        <Outlet />
-        <Footer />
+        <QueryClientProvider client={queryClient}>
+          <Navbar />
+          <Outlet />
+          <Footer />
+        </QueryClientProvider>
       </div>
     );
   };
@@ -59,6 +67,14 @@ function App() {
         {
           path: "/message/:id",
           element: <Message />,
+        },
+        {
+          path: "/login",
+          element: <Login />,
+        },
+        {
+          path: "/register",
+          element: <Register />,
         },
       ],
     },
